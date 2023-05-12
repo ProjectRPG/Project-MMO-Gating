@@ -1,0 +1,10 @@
+{"replace":false,
+ "copyTo":[],
+ "gates":{ 
+ 	"PROGRESS": [ 
+ 	 	{"type":"pmmogating:progression", "events": {
+ 			"projectrpg:break_block": [	{"type":"minecraft:exp", "value":10} ]
+ 		}}
+ 	]
+ }
+}
