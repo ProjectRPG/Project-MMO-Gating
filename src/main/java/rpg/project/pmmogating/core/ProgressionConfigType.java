@@ -16,7 +16,6 @@ import rpg.project.lib.api.APIUtils;
 import rpg.project.lib.api.data.MergeableData;
 import rpg.project.lib.api.data.SubSystemConfig;
 import rpg.project.lib.api.data.SubSystemConfigType;
-import rpg.project.lib.internal.registry.SubSystemCodecRegistry;
 import rpg.project.pmmogating.PmmoGating;
 
 public record ProgressionConfigType() implements SubSystemConfigType{
@@ -30,7 +29,7 @@ public record ProgressionConfigType() implements SubSystemConfigType{
 
 	public static record ProgressionConfig(Map<ResourceLocation, List<SubSystemConfig>> reqs) implements SubSystemConfig {
 		public static final Codec<SubSystemConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-				Codec.unboundedMap(ResourceLocation.CODEC, Codec.list(SubSystemCodecRegistry.CODEC.dispatch("type", SubSystemConfig::getType, SubSystemConfigType::getCodec)))
+				Codec.unboundedMap(ResourceLocation.CODEC, Codec.list(APIUtils.getDispatchCodec().dispatch("type", SubSystemConfig::getType, SubSystemConfigType::getCodec)))
 					.fieldOf("events").forGetter(ssc -> ((ProgressionConfig)ssc).reqs())			
 				).apply(instance, ProgressionConfig::new));
 

@@ -7,9 +7,9 @@ import rpg.project.lib.api.Hub;
 import rpg.project.lib.api.data.ObjectType;
 import rpg.project.lib.api.events.EventContext;
 import rpg.project.lib.api.gating.GateSystem;
+import rpg.project.lib.api.gating.GateUtils.Type;
 import rpg.project.lib.api.progression.ProgressionDataType;
 import rpg.project.lib.api.progression.ProgressionDataType.Comparison;
-import rpg.project.lib.internal.registry.GateRegistry.Type;
 import rpg.project.pmmogating.core.ProgressionConfigType.ProgressionConfig;
 
 public class ProgressionGates implements GateSystem{
