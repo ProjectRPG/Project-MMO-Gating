@@ -1,8 +1,8 @@
 package rpg.project.pmmogating;
 
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import rpg.project.lib.api.gating.GateUtils;
 import rpg.project.pmmogating.core.EventConfigType;
 import rpg.project.pmmogating.core.EventGates;
@@ -13,8 +13,8 @@ import rpg.project.pmmogating.core.ProgressionGates;
 public class PmmoGating {
 	public static final String MODID = "pmmogating";
 	
-	public PmmoGating() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
+	public PmmoGating(IEventBus modbus) {
+		modbus.addListener(this::init);
 	}
 	
 	public void init(FMLCommonSetupEvent event) {

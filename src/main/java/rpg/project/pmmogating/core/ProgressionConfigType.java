@@ -11,11 +11,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.RegistryManager;
 import rpg.project.lib.api.APIUtils;
 import rpg.project.lib.api.data.MergeableData;
 import rpg.project.lib.api.data.SubSystemConfig;
 import rpg.project.lib.api.data.SubSystemConfigType;
+import rpg.project.lib.internal.registry.EventRegistry;
 import rpg.project.pmmogating.PmmoGating;
 
 public record ProgressionConfigType() implements SubSystemConfigType{
@@ -57,8 +57,8 @@ public record ProgressionConfigType() implements SubSystemConfigType{
 
 		@Override
 		public SubSystemConfig getDefault() {
-			return new ProgressionConfig(RegistryManager.ACTIVE.getRegistry(APIUtils.GAMEPLAY_EVENTS)
-					.getKeys().stream().collect(Collectors.toMap(rl -> rl, rl -> new ArrayList<>())));
+			return new ProgressionConfig(EventRegistry.EVENTS.getRegistry().get()
+					.keySet().stream().collect(Collectors.toMap(rl -> rl, rl -> new ArrayList<>())));
 		}
 
 		@Override
