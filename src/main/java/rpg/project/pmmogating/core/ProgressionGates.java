@@ -33,7 +33,7 @@ public class ProgressionGates implements GateSystem{
 				.findFirst()
 				.orElse(null));
 		
-		ProgressionDataType currentProgress = core.getProgression().getProgress(context.actor().getUUID(), container);
+		ProgressionDataType currentProgress = core.getProgression().getProgress(context.getActor().getUUID(), container);
 		float objectResult = objectGateValue == null ? 1f :currentProgress.compare(Comparison.GREATER_THAN_OR_EQUAL, objectGateValue);
 		float eventResult = eventGateValue == null ? 1f : currentProgress.compare(Comparison.GREATER_THAN_OR_EQUAL, eventGateValue); 
 		return Math.min(objectResult, eventResult);

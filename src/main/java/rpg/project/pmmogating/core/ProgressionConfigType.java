@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.resources.ResourceLocation;
@@ -19,16 +20,16 @@ import rpg.project.lib.internal.registry.EventRegistry;
 import rpg.project.pmmogating.PmmoGating;
 
 public record ProgressionConfigType() implements SubSystemConfigType{
-	public static final ResourceLocation ID = new ResourceLocation(PmmoGating.MODID, "progression");
+	public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(PmmoGating.MODID, "progression");
 	public static final ProgressionConfigType IMPL = new ProgressionConfigType();
 
 	@Override
-	public Codec<SubSystemConfig> getCodec() {
+	public MapCodec<SubSystemConfig> getCodec() {
 		return ProgressionConfig.CODEC;
 	}
 
 	public static record ProgressionConfig(Map<ResourceLocation, List<SubSystemConfig>> reqs) implements SubSystemConfig {
-		public static final Codec<SubSystemConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+		public static final MapCodec<SubSystemConfig> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
 				Codec.unboundedMap(ResourceLocation.CODEC, Codec.list(APIUtils.getDispatchCodec().dispatch("type", SubSystemConfig::getType, SubSystemConfigType::getCodec)))
 					.fieldOf("events").forGetter(ssc -> ((ProgressionConfig)ssc).reqs())			
 				).apply(instance, ProgressionConfig::new));
@@ -51,7 +52,7 @@ public record ProgressionConfigType() implements SubSystemConfigType{
 		}
 
 		@Override
-		public Codec<SubSystemConfig> getCodec() {
+		public MapCodec<SubSystemConfig> getCodec() {
 			return CODEC;
 		}
 

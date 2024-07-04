@@ -31,7 +31,7 @@ public class EventGates implements GateSystem {
 					.map(ssc -> (ProgressionDataType)ssc)
 					.findFirst()
 					.orElse(null);
-			ProgressionDataType currentProgress = core.getProgression().getProgress(context.actor().getUUID(), reqs.getKey());
+			ProgressionDataType currentProgress = core.getProgression().getProgress(context.getActor().getUUID(), reqs.getKey());
 			outValue = Math.min(outValue, eventGateValue == null ? 1f : currentProgress.compare(Comparison.GREATER_THAN_OR_EQUAL, eventGateValue));
 		}
 		
